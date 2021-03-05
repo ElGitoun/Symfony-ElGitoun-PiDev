@@ -1,0 +1,44 @@
+
+
+{% block title %}gerer les activites{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+<h1>Gerer les Activites</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>titre</th>
+            <th>description</th>
+            <th>price</th>
+            <th>date</th>
+            <th>duration</th>
+            <th>size</th>
+            <th>emplacement</th>
+            <th>Actions</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for activite in activites %}
+        <tr>
+            <td>{{ activite.title}}</td>
+            <td>{{ activite.description}}</td>
+            <td>{{ activite.price}}</td>
+            <td>{{ activite.date}}</td>
+            <td>{{ activite.duration}}</td>
+            <td>{{ activite.size}}</td>
+            <td>{{ activite.emplacement}}</td>
+            <td>
+                <a href="{{ path('admin.activite.edit' , {id: activite.id})}}" class="btn btn-secondary"> edit </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+
+
+
+{% endblock %}

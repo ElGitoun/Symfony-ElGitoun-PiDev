@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}gerer les activites{% endblock %}
+{% block content %}
+{% block body %}
+<div class="container mt-4" style="height:70vh">
+<h1>Gerer les Activites</h1>
+{% for message in app.flashes('success') %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endfor %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>titre</th>
+            <th>description</th>
+            <th>price</th>
+            <th>date</th>
+            <th>duration</th>
+            <th>size</th>
+            <th>emplacement</th>
+            <th>Actions</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for activite in activities %}
+        <tr>
+            <td>{{ activite.title}}</td>
+            <td>{{ activite.description}}</td>
+            <td>{{ activite.price}}</td>
+            <td>{{ activite.date|date('Y-m-d')}}</td>
+            <td>{{ activite.duration}}</td>
+            <td>{{ activite.size}}</td>
+            <td>{{ activite.emplacement}}</td>
+            <td>
+                <a href="{{ path('admin.activite.edit' , {id: activite.id})}}" class="btn btn-secondary"> edit </a>
+                <form method="POST" action="{{path('admin.activite.delete', {id: activite.id}) }}" style="display:inline-block" onsubmit="return confirm('etes vous sur ?')">
+                   <input type="hidden" name="_method"  value="DELETE">
+                   <button class="btn btn-danger">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="text-right">
+    <a href="{{ path('admin.activite.new')}}" class="btn btn-primary">Ajouter une nouvelle activitée</a>
+
+</div>
+
+</div>
+
+{% endblock %}
+
+{% endblock %}

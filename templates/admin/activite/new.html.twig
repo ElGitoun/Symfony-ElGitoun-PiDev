@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ajouter des activites{% endblock %}
+
+{% block content %}
+{% block body %}
+
+<h1>ajouter des Activites</h1>
+{{form_start(form, {'attr':{'novalidate':'novalidate'}})}}
+{{form_widget(form)}}
+
+<button class="btn btn-primary">ajouter</button>
+{{form_end(form)}}
+
+{% endblock %}
+
+{% endblock %}
