@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}echange materiel{% endblock %}
+
+
+{% block content %}
+<table border="1">
+
+    <th>id</th>
+        <th>proprietaire</th>
+    <th>title</th>
+    <th>description</th>
+    <th>price</th>
+    <th>date of publishment</th>
+    <th>type Publication</th>
+    <tr>
+        {% for Materiel in Materiel  %}
+        <td>{{ Materiel.id }}</td>
+        <td>{{ Materiel.getUser.getFirstName ~" "~ Materiel.getUser.getLastName}}</td>
+        <td>{{ Materiel.title}}</td>
+        <td>{{ Materiel.description}}</td>
+        <td>{{ Materiel.price}}</td>
+         <td>{{ Materiel.date|date("m/d/Y")}}</td>
+         <td>{{ Materiel.typePublication.name}}</td>      
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
