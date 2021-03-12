@@ -35,6 +35,12 @@ class User
     private $email;
 
     /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
+
+    /**
      * @ORM\Column(type="date", nullable=true)
      */
     private $birth_date;
@@ -329,4 +335,28 @@ class User
 
    
 
+
+    /**
+     * Get the hashed password
+     *
+     * @return  string
+     */ 
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the hashed password
+     *
+     * @param  string  $password  The hashed password
+     *
+     * @return  self
+     */ 
+    public function setPassword(string $password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
 }

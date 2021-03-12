@@ -47,4 +47,12 @@ class ActiviteRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function search($term)
+    {
+        return $this->createQueryBuilder('Activite')
+            ->andWhere('Activite.title = :tit')
+            ->setParameter('tit', $term)
+            ->getQuery()
+            ->execute();
+    }
 }

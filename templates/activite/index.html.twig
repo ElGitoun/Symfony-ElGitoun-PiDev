@@ -1,0 +1,185 @@
+{% extends 'base.html.twig' %}
+{% block title %}Activitees{% endblock %}
+{% block content %}
+{% block body %}
+
+<!-- bradcam_area  -->
+    <div class="bradcam_area slider_bg_3">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="bradcam_text text-center">
+                        <h3>EL GITOUN</h3>
+                        <p>best destination</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ bradcam_area  -->
+
+    <div class="popular_places_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="filter_result_wrap">
+                        <h3>Filter Result</h3>
+                        <div class="filter_bordered">
+                            <div class="filter_inner">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="single_select">
+                                            <select>
+                                                <option data-display="Country">Country</option>
+                                                <option value="1">Africa</option>
+                                                <option value="2">canada</option>
+                                                <option value="4">USA</option>
+                                              </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="single_select">
+                                            <select>
+                                                <option data-display="Travel type">Travel type</option>
+                                                <option value="1">advance</option>
+                                                <option value="2">advance</option>
+                                                <option value="4">premium</option>
+                                              </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="range_slider_wrap">
+                                            <span class="range">Prise range</span>
+                                            <div id="slider-range"></div>
+                                            <p>
+                                                <input type="text" id="amount" readonly style="border:0; color:#7A838B; font-weight:400;">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="reset_btn">
+                                <button class="boxed-btn4" type="submit">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                {{ form_start(form) }}
+
+<div class="form-row align-items-end" >
+ <div class="col">
+   {{ form_row(form.title) }}
+ </div>
+
+  <div class="col">
+   <div class="form-group">
+      <button type="submit" class="btn btn-success">Rechercher</button>
+    </div>
+ </div>
+</div>
+ {{ form_end(form) }}
+                    <div class="row">
+                    {% for activite in activities %}
+                        <div class="col-lg-6 col-md-6">
+                            <div class="single_place">
+                                <div class="thumb">
+
+                                    <img src="{{ asset('images/1.png') }}" alt="">
+                                    <a href="#" class="prise">{{ activite.price}} DT</a>
+                                </div>
+                                <div class="place_info">
+                                    <a href="destination_details.html"><h3>{{ activite.title}}</h3></a>
+                                    <p>{{ activite.emplacement}}</p>
+                                    <div class="rating_days d-flex justify-content-between">
+                                        <span class="d-flex justify-content-center align-items-center">
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i>
+                                             <a href="#">({{ activite.date|date('Y-m-d')}})</a>
+                                        </span>
+                                        <div class="days">
+                                            <i class="fa fa-clock-o"></i>
+                                            <a href="#">{{ activite.duration}} heures</a>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     
+                    {% endfor %}
+                    
+                    </div>
+                    {{ knp_pagination_render(activities) }}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="more_place_btn text-center">
+                                <a class="boxed-btn4" href="#">More Places</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container mt-4" style="height:80vh">
+<div class="popular_places_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>All Activites</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            {% for activite in activitiees %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_place">
+                                <div class="thumb">
+
+                                    <img src="{{ asset('images/1.png') }}" alt="">
+                                    <a href="#" class="prise">{{ activite.price}} DT</a>
+                                </div>
+                                <div class="place_info">
+                                    <a href="destination_details.html"><h3>{{ activite.title}}</h3></a>
+                                    <p>{{ activite.emplacement}}</p>
+                                    <div class="rating_days d-flex justify-content-between">
+                                        <span class="d-flex justify-content-center align-items-center">
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i>
+                                             <a href="#">({{ activite.date|date('Y-m-d')}})</a>
+                                        </span>
+                                        <div class="days">
+                                            <i class="fa fa-clock-o"></i>
+                                            <a href="#">{{ activite.duration}} heures</a>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+            
+        </div>
+        {{ knp_pagination_render(activitiees) }}
+    </div>
+
+
+</div>
+{% block footer %}
+{% endblock %}
+{% endblock %}
+
+{% endblock %}

@@ -1,17 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
 {% block title %}editer les activites{% endblock %}
 
 {% block content %}
 {% block body %}
-
+<div class="container">
 <h1>Editer les Activites</h1>
 {{form_start(form)}}
 {{form_widget(form)}}
 
 <button class="btn btn-primary">editer</button>
 {{form_end(form)}}
-
+</div>
 {% endblock %}
 
 {% endblock %}
