@@ -1,31 +1,76 @@
-{% extends 'base.html.twig' %} {% block title %}echange materiel{% endblock %}
+{% extends 'base.html.twig' %} {% block title %} materiels{% endblock %}
 {% block content %}
-<div style="height: 80vh;">
-    <h1 style="text-align: center;">list of materiel</h1>
-    <hr>
-    <table style="text-align: center;" class="table" border="1">
-        <th>proprietaire</th>
-        <th>title</th>
-        <th>price</th>
-        <th>type de Publication</th>
-        <th colspan="2">operations</th>
-        {% for m in materiel  %}
 
-        <tr>
-          <td>
-            {{ m.getUser.getFirstName ~" "~ m.getUser.getLastName}}
-          </td>
-          <td>{{ m.title }}</td>
-          <td>{{ m.price ~ " dt"}}</td>
-          <td>{{ m.typePublication.name }}</td>
-          <td><a class="btn btn-warning"href="{{ path("updateM",{"id":m.id}) }}">update</a></td>
-        <td> <a class="btn btn-danger" href="{{ path("deleteM",{"id":m.id}) }}">delete</a></td>
-        </tr>
-        {% endfor %}
-      </table>
-      <hr>
-        <center><a href="{{ path("addmateriel") }}" class="btn btn-primary">Add product</a></center>
+<h1 style="text-align: center;">Tous   materiels </h1>
+<hr>
+<div class="page-content" style="display: flex;">
+  <div class="sidebar" style="margin-left: 50px;">
+    
+    <h2 style="text-align: center;">Categories</h2>
+    <table class="table" style="min-width:200px;text-align: left;">
+      <tr>
+        <td><a href="{{ path("tentes") }}"><i style="margin-right: 5px;" class="fa fa-home" aria-hidden="true"></i>tentes</a></td>
+      </tr>
+      <tr>
+        <td>
+          <a href="{{ path("sac_ados") }}"><i  style="margin-right: 5px;" class="fa fa-shopping-bag" aria-hidden="true"></i></i>sac à dos </a></td>        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="{{ path("vetements") }}"><i  style="margin-right: 5px;" class="fa fa-home" aria-hidden="true"></i>vetements</a></td>        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="{{ path("find_sac_couchage") }}"><i style="margin-right: 5px;" class="fa fa-home" aria-hidden="true"></i>sac de couchage</a></td>        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="{{ path("autre") }}"><i style="margin-right: 5px;" class="fa fa-home" aria-hidden="true"></i>autre</a></td>        </td>
+      </tr>
+    </table>
+  </div>
 
+
+
+  <div class="container">
+    <div style="margin-bottom: 18px;">
+    prix <a style="margin-bottom:20px;" href="{{ path("triasc") }}" ><i class="fa fa-arrow-down" aria-hidden="true"></i>    </a>
+      <a style="margin-bottom:20px;" href="{{ path("tridesc") }}"><i
+        style="margin-right: 10px;" class="fa fa-arrow-up" aria-hidden="true"></i> </a>
+      le plus récent <a style="margin-bottom:20px;" href="{{ path("latest") }}"><i class="fa fa-clock-o" aria-hidden="true"></i>
+      </a>
+    <form style="display: inline;"class="form-inline my-2 my-lg-0"  method="post" action="{{ path("recherche") }}">
+      <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+    </form>
+  </div>
+    
+    <div class="row flex">
+      {%for m in materiel%}
+      <div class="col-3">
+        <div class="card" style="margin-bottom:20px;height: 90%;">
+          <img class="card-img-top"src="{{vich_uploader_asset(m ,'imageFile') }}" alt="Card image cap">
+          <div class="card-body">
+          <a href="{{ path("show",{"id":m.id}) }}"> <h5 class="card-title">{{m.title}}</h5></a>  
+            <p class="card-text" style="color:cornflowerblue;">{{m.price~ "  dt"}}</p>
+            <p class="card-text">{{m.categorie.name}}</p>
+          <a href="{{ path("feedback",{"id":m.getUser.getId}) }}"><p class="card-text">{{m.getUser.getFirstname~ " "~m.getUser.getLastname}}</p></a>  
+            <p class="card-text">{{m.getCreatedAt|date}}</p>
+            <!--<a href="#"><i style="color:red;text-align:right;" class="fa fa-heart" aria-hidden="true"></i></a> -->
+          </div>
+        </div>
+
+      </div>
+      {% endfor %}
+      
+    </div>
+    <div class="navigation" style="margin:20px;">
+        {{ knp_pagination_render(materiel) }}
+      </div>
+  </div>
 </div>
-  {% endblock %}
+</div>
 
+
+{% endblock %}

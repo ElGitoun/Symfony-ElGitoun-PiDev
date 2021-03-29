@@ -1,0 +1,49 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}product{% endblock %}
+
+{% block content %}
+<h3 style="text-align:center;">Liste of product</h3>
+prix <a style="margin-bottom:20px;" href="{{ path("adtriasc") }}" ><i class="fa fa-arrow-down" aria-hidden="true"></i>    </a>
+      <a style="margin-bottom:20px;" href="{{ path("adtridesc") }}"><i
+        style="margin-right: 10px;" class="fa fa-arrow-up" aria-hidden="true"></i> </a>
+        le plus récent <a style="margin-bottom:20px;" href="{{ path("adlatest") }}"><i class="fa fa-clock-o" aria-hidden="true"></i>
+</a>
+<table class="table table-striped" style="margin-top:10px;" class="col-xl-2 col-lg-2">
+    <th>ID</th>
+
+    <th>proprietaire</th>
+    <th>title</th>
+    <th>price</th>
+    <th>date of publishment</th>
+    <th>type Publication</th>
+    <th>etat</th>
+    <th>action</th>
+    <tr>
+        {% for Materiel in Materiel %}
+        <td>  {{ Materiel.id }}</td>
+        <td>
+            {{ Materiel.getUser.getFirstName ~" "~ Materiel.getUser.getLastName}}
+        </td>
+        <td>{{ Materiel.title }}</td>
+        <td>{{ Materiel.price ~ " dt"}}</td>
+        <td>{{ Materiel.getCreatedAt|date("d/m/Y")}}</td>
+        <td>{{ Materiel.typePublication.name }}</td>
+        {% if Materiel.visible == true %}
+        <td> <a href="#" class="btn btn-danger  disabled" role="button" aria-disabled="true">indisponible</a></td>
+        {% else %}
+        <td> <a href="#" class="btn btn-success  disabled" role="button" aria-disabled="true">disponible</a></td>
+        {% endif %}
+       <td><i class="card-text"> <a class="btn btn-warning" href="{{ path("adshow",{"id":Materiel.id})  }}"><i class="fa fa-eye" aria-hidden="true"></i>
+       </a></i>
+
+        <i class="card-text"> <a class="btn btn-danger" href="{{ path("admindelete",{"id":Materiel.id}) }}"><i
+                        class="fa fa-trash" aria-hidden="true"></i> </a></i></td>
+    </tr>
+
+    {% endfor %}
+</table>
+<div class="navigation">
+    {{ knp_pagination_render(Materiel) }}
+</div>
+{% endblock %}

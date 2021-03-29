@@ -1,0 +1,61 @@
+{% extends 'base_admin.html.twig' %} {% block title %}update product{% endblock %}
+{% block content %}
+
+<div >
+<h3 style="text-align:center;">Update product</h3>
+
+  {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+  <table border="1"class="table table-striped" style="margin-top:10px;" class="col-xl-2 col-lg-2">
+<tr>
+      <td > {{form_label(form.imageFile)}}</td>
+      <td > {{form_widget(form.imageFile)}}</td>
+
+    </tr>
+    <tr>
+      <td > {{form_label(form.title)}}</td>
+      <td > {{form_widget(form.title)}}</td>
+    </tr>
+    <tr>
+      <td> {{form_label(form.description)}}</td>
+      <td> {{form_widget(form.description)}}</td>
+
+    </tr>
+    <tr>
+      <td> {{form_label(form.price)}}</td>
+      <td> {{form_widget(form.price)}}</td>
+      <td> {{form_errors(form.price)}}</td>
+    </tr>
+    
+    <tr>
+      <td> {{form_label(form.user)}}</td>
+      <td> {{form_widget(form.user)}}</td>
+      <td> {{form_errors(form.user)}}</td>
+
+    </tr>
+    <tr>
+      <td> {{form_label(form.Categorie)}}</td>
+      <td> {{form_widget(form.Categorie)}}</td>
+      <td> {{form_errors(form.Categorie)}}</td>
+
+    </tr>
+    <tr>
+      <td> {{form_label(form.typepublication)}}</td>
+      <td> {{form_widget(form.typepublication)}}</td>
+      <td> {{form_errors(form.typepublication)}}</td>
+
+    </tr>
+     <tr>
+      <td> Etat</td>
+      <td> indisponible {{form_widget(form.visible)}}</td>
+      <td> {{form_errors(form.visible)}}</td>
+
+    </tr>
+
+  </table>
+  {{ form_end(form) }}
+
+
+
+</div>
+{% endblock %}

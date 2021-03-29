@@ -75,9 +75,21 @@ class User
     private $publicationEquipements;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $phone_number;
+
+    /**
      * @ORM\OneToMany(targetEntity=Feedback::class, mappedBy="user")
      */
     private $feedback;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Feedback::class, mappedBy="ownerfeedback")
+     */
+    private $ownerfeedback;
+
+    
 
     public function __construct()
     {
@@ -86,7 +98,7 @@ class User
         $this->publicationForums = new ArrayCollection();
         $this->publicationEquipements = new ArrayCollection();
         $this->feedback = new ArrayCollection();
-    }
+        $this->ownerfeedback = new ArrayCollection();    }
 
    
     public function getId(): ?int
@@ -296,6 +308,20 @@ class User
 
         return $this;
     }
+   
+
+   
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phone_number;
+    }
+
+    public function setPhoneNumber(string $phone_number): self
+    {
+        $this->phone_number = $phone_number;
+
+        return $this;
+    }
 
     /**
      * @return Collection|Feedback[]
@@ -326,6 +352,40 @@ class User
 
         return $this;
     }
+
+    /**
+     * @return Collection|Feedback[]
+     */
+    public function getOwnerfeedback(): Collection
+    {
+        return $this->ownerfeedback;
+    }
+
+    public function addOwnerfeedback(Feedback $ownerfeedback): self
+    {
+        if (!$this->ownerfeedback->contains($ownerfeedback)) {
+            $this->ownerfeedback[] = $ownerfeedback;
+            $ownerfeedback->setOwnerfeedback($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwnerfeedback(Feedback $ownerfeedback): self
+    {
+        if ($this->ownerfeedback->removeElement($ownerfeedback)) {
+            // set the owning side to null (unless already changed)
+            if ($ownerfeedback->getOwnerfeedback() === $this) {
+                $ownerfeedback->setOwnerfeedback(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+
+   
 
    
 

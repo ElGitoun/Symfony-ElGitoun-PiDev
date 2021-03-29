@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %} {% block title %}add feedback{% endblock %}
+{% block content %}
+
+<div >
+  <h1 style="text-align: center;"> add feedback</h1>
+
+  {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+  <table class="table" style="width:50%;margin-left:30%;">
+    <tr>
+      <td> {{form_label(form.description)}}</td>
+      <td class="form-control"> {{form_widget(form.description)}}</td>
+      <td class="form-control "> {{form_errors(form.description)}}</td>
+
+    </tr>
+    <tr>
+      <td> {{form_label(form.ownerfeedback)}}</td>
+      <td class="form-control"> {{form_widget(form.ownerfeedback)}}</td>
+      <td class="form-control "> {{form_errors(form.ownerfeedback)}}</td>
+
+    </tr>
+     
+    
+  </table>
+<center>  {{ form_end(form) }}
+</center>
+
+
+</div>
+{% endblock %}

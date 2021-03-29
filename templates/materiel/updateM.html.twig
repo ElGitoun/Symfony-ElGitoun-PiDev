@@ -1,9 +1,65 @@
-{% extends 'base.html.twig' %}
-{% block title %}echange materiel
-{% endblock %}
+{% extends 'base.html.twig' %} {% block title %}echange materiel{% endblock %}
 {% block content %}
-<div style="height:60vh">
-{{ form(form) }}
 
-    </div>
+<div >
+  <h1 style="text-align: center;"> update product</h1>
+
+  {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+  <table class="table" style="width:40%;margin-left:25%">
+<tr>
+      <td> {{form_label(form.imageFile)}}</td>
+      <td> {{form_widget(form.imageFile)}}</td>
+      <td> {{form_errors(form.imageFile)}}</td>
+
+    </tr>
+    <tr>
+      <td > {{form_label(form.title)}}</td>
+      <td class="form-control"> {{form_widget(form.title)}}</td>
+      <td class="form-control" aria-readonly="true"> {{form_errors(form.title)}}</td>
+
+    </tr>
+    <tr>
+      <td> {{form_label(form.description)}}</td>
+      <td class="form-control"> {{form_widget(form.description)}}</td>
+      <td class="form-control"> {{form_errors(form.description)}}</td>
+
+    </tr>
+    <tr>
+      <td> {{form_label(form.price)}}</td>
+      <td> {{form_widget(form.price)}}</td>
+      <td> {{form_errors(form.price)}}</td>
+    </tr>
+    
+    <tr>
+      <td> {{form_label(form.user)}}</td>
+      <td> {{form_widget(form.user)}}</td>
+      <td> {{form_errors(form.user)}}</td>
+
+    </tr>
+    <tr>
+      <td> {{form_label(form.Categorie)}}</td>
+      <td> {{form_widget(form.Categorie)}}</td>
+      <td> {{form_errors(form.Categorie)}}</td>
+
+    </tr>
+    <tr>
+      <td> {{form_label(form.typepublication)}}</td>
+      <td> {{form_widget(form.typepublication)}}</td>
+      <td> {{form_errors(form.typepublication)}}</td>
+
+    </tr>
+     <tr>
+      <td> {{form_label(form.visible)}}</td>
+      <td> {{form_widget(form.visible)}}</td>
+      <td> {{form_errors(form.visible)}}</td>
+
+    </tr>
+
+  </table>
+  {{ form_end(form) }}
+
+
+
+</div>
 {% endblock %}

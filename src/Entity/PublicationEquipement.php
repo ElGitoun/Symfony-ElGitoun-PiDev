@@ -3,15 +3,22 @@
 namespace App\Entity;
 
 use App\Repository\PublicationEquipementRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 
 /**
  * @ORM\Entity(repositoryClass=PublicationEquipementRepository::class)
+ * @Vich\Uploadable
  */
 class PublicationEquipement
 {
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,44 +27,47 @@ class PublicationEquipement
     private $id;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $date;
-
-    /**
-     *Type("string")
+     * Type("string")
      * @Assert\Length(
      *      min = 2,
-     *      max = 50,
+     *      max = 20,
      * )
-     *@Assert\NotNull
-     * 
-     * @ORM\Column(type="string", length=255 ,nullable=true)
+     *@Assert\NotNull(message="please type a title for your product" )
+     *Type("string")
+     * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
-     * /**
+     * 
      *Type("string")
      * @Assert\Length(
-     *      min = 2,
-     *      max = 50,
+     *      min = 8,
+     *      max = 1000,
+     *       
      * )
-     *@Assert\NotNull
+     *@Assert\NotNull(message="please type a discription for your product")  
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
+     * @Assert\Regex("/^[0-9]/")
+     * @Assert\NotNull(message="please type a price for your product") 
      * @ORM\Column(type="float", nullable=true)
      */
     private $price;
-
     /**
-     * @ORM\Column(type="string", length=255 , nullable=true)
+     * @ORM\Column(type="string", length=255 ,nullable=true)
+     * @var string|null
      */
-    private $image;
-
+    private $filename;
+    /**
+     * @Assert\NotNull(message="please select an image")
+     * @var File
+     * @Vich\UploadableField(mapping="products_image",fileNameProperty="filename")
+     */
+    private $imageFile;
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="publicationEquipements")
      */
@@ -67,6 +77,34 @@ class PublicationEquipement
      * @ORM\ManyToOne(targetEntity=TypePublication::class, inversedBy="publicationEquipements")
      */
     private $typePublication;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+    public  function __construct()
+    {
+        $this->created_at=new DateTime();
+        $this->updated_at=new DateTime();
+
+
+        
+    }
+
+    /**
+     * @ORM\Column(type="boolean",options={"default":false})
+     */
+    private $visible=false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CategorieEquipement::class, inversedBy="publicationEquipements")
+     */
+    private $categorie;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
 
     public function getId(): ?int
     {
@@ -121,17 +159,7 @@ class PublicationEquipement
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
+    
 
     public function getUser(): ?User
     {
@@ -145,7 +173,7 @@ class PublicationEquipement
         return $this;
     }
 
-    public function getTypePublication():?TypePublication 
+    public function getTypePublication():?TypePublication
     {
         return $this->typePublication;
     }
@@ -156,4 +184,95 @@ class PublicationEquipement
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getVisible(): ?bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(bool $visible): self
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?CategorieEquipement
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?CategorieEquipement $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param string|null $filename
+     * @return PublicationEquipement
+     */
+    public function setFilename(?string $filename): PublicationEquipement
+    {
+        $this->filename = $filename;
+       
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     * @return PublicationEquipement
+     */
+    public function setImageFile(?File $imageFile): PublicationEquipement
+    {
+        $this->imageFile = $imageFile;
+        
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    
 }

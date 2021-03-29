@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{{user.getFirstName ~ " " ~user.getLastName}} feedback{% endblock %}
+{% block content %}
+<h1 style="text-align: center;">
+  {{user.getFirstName ~ " " ~ user.getLastName}} feedbacks </h1>
+<table class="table" style="width: 50%;margin-left: 20%;">
+  <tr>
+    <th>first name</th>
+
+    <td>{{ user.getFirstName }}</td>
+  </tr>
+  <tr>
+    <th>last_name</th>
+    <td>{{user.getLastName}}</td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td>{{user.email}}</td>
+  </tr>
+  <tr>
+    <th>birth_date</th>
+    <td>{{user.getBirthDate|date('Y-m-d')  }}</td>
+  </tr>
+  <tr>
+    <th>Phone Number</th>
+    <td>{{user.getPhoneNumber() }}</td>
+  </tr>
+</table>
+<center><a style="margin-bottom:20px;" href="{{ path("usermateriel",{"id":user.getId}) }}" class="btn btn-primary"><i
+      style="margin-right: 10px;" aria-hidden="true"></i>view product published </a></center>
+<hr>
+
+
+<table class="table table-bordered"   >
+
+  <tr style="text-align: center;">
+    <th>writer</th>
+    <th>date</th>
+
+    <th>description</th>
+
+  </tr>
+  <tr>
+    {% for feedback in feedback %}
+
+    <td>{{ feedback.getOwnerfeedback.getFirstname ~ feedback.getOwnerfeedback.getLastname }}</td>
+    <td>{{ feedback.date|date('Y/m/d')  }}</td>
+    <td>{{ feedback.description }}</td>
+  </tr>
+  {% endfor %}
+
+  <tr>
+    
+  </tr>
+
+</table>
+ <div class="navigation" style="margin:20px;">
+        {{ knp_pagination_render(feedback) }}
+      </div>
+<center><a style="margin-bottom:20px;" href="{{ path("addfeedback",{"id":user.getId}) }}" class="btn btn-primary"><i
+      style="margin-right: 10px;" class="fa fa-plus-circle" aria-hidden="true"></i>add feedback </a></center>
+{% endblock %}

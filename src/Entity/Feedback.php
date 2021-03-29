@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\FeedbackRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,15 +24,25 @@ class Feedback
     private $date;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $note;
+    private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="feedback")
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ownerfeedback")
+     */
+    private $ownerfeedback;
+
+  
+    public  function __construct()
+    {
+        $this->date=new DateTime();        
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -49,14 +60,14 @@ class Feedback
         return $this;
     }
 
-    public function getNote(): ?int
+    public function getDescription(): ?string
     {
-        return $this->note;
+        return $this->description;
     }
 
-    public function setNote(int $note): self
+    public function setDescription(string $description): self
     {
-        $this->note = $note;
+        $this->description = $description;
 
         return $this;
     }
@@ -72,4 +83,18 @@ class Feedback
 
         return $this;
     }
+
+    public function getOwnerfeedback(): ?User
+    {
+        return $this->ownerfeedback;
+    }
+
+    public function setOwnerfeedback(?User $ownerfeedback): self
+    {
+        $this->ownerfeedback = $ownerfeedback;
+
+        return $this;
+    }
+
+   
 }

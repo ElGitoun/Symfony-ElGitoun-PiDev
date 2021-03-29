@@ -18,7 +18,13 @@ class FeedbackRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Feedback::class);
     }
-
+    public function findallbyuser(){
+        return $this->createQueryBuilder('p')
+            ->where('p.user=2')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     // /**
     //  * @return Feedback[] Returns an array of Feedback objects
     //  */

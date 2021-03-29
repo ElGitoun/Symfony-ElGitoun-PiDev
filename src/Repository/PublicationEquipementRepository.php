@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\PublicationEquipement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,7 +19,100 @@ class PublicationEquipementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PublicationEquipement::class);
     }
+    /** metier partie client */
+    public function findallvisible()
+    {
+        return $this->findvisibleQuery()
+            ->getQuery()
+        ;
+    }
+    public function findallbyuser(){
+        return $this->createQueryBuilder('p')
+            ->where('p.user=2')
+            ->getQuery()
+            ->getResult()
+        ;
 
+    }
+    public function tridesc(){
+        return $this->findvisibleQuery()
+        ->orderBy('p.price' ,'DESC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function triasc(){
+        return $this->findvisibleQuery()
+        ->orderBy('p.price' ,'ASC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function findlatest(){
+        return $this->findvisibleQuery()
+        ->orderBy('p.created_at' ,'DESC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function findoldest(){
+        return $this->findvisibleQuery()
+        ->orderBy('p.created_at' ,'ASC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function findtente(){
+        return $this->findvisibleQuery()
+        ->where('p.categorie=1' )
+        ->getQuery()
+        ->getResult();
+    }
+    public function findvetements(){
+        return $this->findvisibleQuery()
+        ->where('p.categorie=3' )
+        ->getQuery()
+        ->getResult();
+    }
+    public function findsacados(){
+        return $this->findvisibleQuery()
+        ->where('p.categorie=2' )
+        ->getQuery()
+        ->getResult();
+    }
+    public function findsacdecouchage(){
+        return $this->findvisibleQuery()
+        ->where('p.categorie=5' )
+        ->getQuery()
+        ->getResult();
+    }
+    public function findautre(){
+        return $this->findvisibleQuery()
+        ->where('p.categorie=4' )
+        ->getQuery()
+        ->getResult();
+    }
+    public function findvisibleQuery(){
+        return $this->createQueryBuilder('p')
+        ->where('p.visible=false');
+    }
+
+
+/*          metier de partie  admin  */
+    public function adtridesc(){
+        return $this->createQueryBuilder('p')
+        ->orderBy('p.price' ,'DESC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function adtriasc(){
+        return $this->createQueryBuilder('p')
+        ->orderBy('p.price' ,'ASC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function adfindlatest(){
+        return $this->createQueryBuilder('p')
+        ->orderBy('p.created_at' ,'DESC')
+        ->getQuery()
+        ->getResult();
+    }
     // /**
     //  * @return PublicationEquipement[] Returns an array of PublicationEquipement objects
     //  */
