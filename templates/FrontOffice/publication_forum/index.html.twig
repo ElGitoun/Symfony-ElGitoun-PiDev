@@ -1,0 +1,79 @@
+{% extends 'client.html.twig' %}
+
+
+
+{% block pub %}
+<div class="column is-three-quarters" >
+    <div class="tabs forum">
+        <ul>
+            <li class="is-active"><a>All</a></li>
+            <li><a>Open</a></li>
+            <li><a>Solved</a></li>
+            <li><a>Popular</a></li>
+            <a href="{{ path("addpost_index_front") }}" class="btn btn-danger "style="float:right ; right:5;margin-left:275px;color: white;width: 250px;"> Ajouter</a>
+        </ul>
+    </div>
+    <div class="box forum">
+        {% for m in forum  %}
+        <article class="media">
+            <div class="media-left">
+                <figure class="image avatar is-64x64">
+                    <img src={{ asset('/assets/img/1.png')}} alt="Image" class="is-rounded">
+                </figure>
+            </div>
+            <div class="media-content">
+                <div class="content list-forum">
+                    <div class="is-pulled-right has-text-centered ">
+                        <a href="#" class="love">
+                                        <span>
+                                    <i class="mdi mdi-heart-outline"></i>
+                                  </span>
+                        </a>
+                        <span>15</span>
+                    </div>
+                    <p class="text-content">
+
+                        <a href="{{ path('forum_index_back_comment') }}"> {{m.titre}}
+                            <span class="solved" title="Solved">
+                                  <i class="mdi mdi-checkbox-marked-circle"></i>
+                                </span>
+                        </a>
+                    </p>
+                    <p class="tags-content">
+                        <a class="tag is-rounded is-primary"> {{m.getUser.getFirstname}}</a>
+
+                    </p>
+                    <p class="info-content">
+                        <a>
+                            <i class="mdi "></i>
+                            <small>{{ m.date |date('d-m-Y')}}</small>
+                        </a>
+
+                        <a>
+                            <i class="mdi mdi-eye-outline"></i>
+                            <small>100k</small>
+                        </a>
+                        <a>
+                            <i class="mdi mdi-comment-text-multiple-outline"></i>
+                            <small>70</small>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+
+
+    </div>
+    <div class="box">
+        <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+        </nav>
+    </div>
+
+
+<div class="navigation">
+    {{ knp_pagination_render(forum) }}
+</div>
+</div>
+
+{% endblock %}

@@ -12,14 +12,30 @@ use App\Repository\UserRepository;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user", name="user")
+     * @Route("/home/user", name="user_index_front")
      */
-    public function index(UserRepository $repo): Response
+    public function indexfront(UserRepository $repo): Response
     {
         $user=$repo->findAll();
-        return $this->render('user/index.html.twig', [
+        return $this->render('/FrontOffice/user/index.html.twig', [
             'users' => $user,
         ]);
     }
   
+
+
+
+
+
+/**
+ * @Route("/admin/user", name="user_index_back")
+ */
+public function indexback(UserRepository $repo): Response
+{
+    $user=$repo->findAll();
+    return $this->render('/BackOffice/user/index.html.twig', [
+        'users' => $user,
+    ]);
+}
+
 }

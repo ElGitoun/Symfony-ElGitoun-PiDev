@@ -1,0 +1,113 @@
+
+<!-- CSS here -->
+<link rel="stylesheet" href={{ asset('css/bootstrap.min.css') }}>
+<link rel="stylesheet" href={{asset(' assetcss/owl.carousel.min.css') }}>
+<link rel="stylesheet" href={{ asset('css/magnific-popup.css') }}>
+<link rel="stylesheet" href={{ asset('css/font-awesome.min.css') }}>
+<link rel="stylesheet" href={{ asset('css/themify-icons.css') }}>
+<link rel="stylesheet" href={{ asset('css/nice-select.css') }}>
+<link rel="stylesheet" href{{ asset('css/flaticon.css') }}=>
+<link rel="stylesheet" href={{ asset('css/gijgo.css') }}>
+<link rel="stylesheet" href={{ asset('css/animate.css') }}>
+<link rel="stylesheet" href={{ asset('css/slick.css') }}>
+<link rel="stylesheet" href={{ asset('css/slicknav.css') }}>
+<link rel="stylesheet" href={{ asset('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css') }}>
+
+<link rel="stylesheet" href={{ asset('css/style.css')}}>
+<!-- <link rel="stylesheet" href="css/responsive.css"> -->
+{% block z %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ElGitounForum</title>
+    <link rel="stylesheet" href={{ asset('https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css')}}>
+    <link rel="stylesheet" href={{ asset('https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css')}} >
+    <link rel="stylesheet" href={{ asset('assets/css/style.css')}} >
+</head>
+<body>
+{% endblock %}
+{% block header %}
+    <header>
+        <div class="header-area ">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container-fluid">
+                    <div class="header_bottom_border">
+                        <div class="row align-items-center">
+                            <div class="col-xl-2 col-lg-2">
+                                <div class="logo">
+
+                                    <a href="{{path('home')}}">
+                                        <h1 style="font-size: 36px;line-height: 1.2em;font-family: Rubik, sans-serif;">EL GITOUN</h1>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6">
+                                <div class="main-menu  d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a class="active" href="{{path('home')}}">home</a></li>
+                                            <li><a href="about.html">Évenement </a></li>
+                                            <li><a class="" href="travel_destination.html">activité</a></l/li>
+                                            <li><a class="" href="{{path('forum_index_front_Search')}}">forum</a></l/li>
+                                            <li><a class="" href="{{path('materiel_index_front')}}">Échange materiel</a></l/li>
+                                            <li><a class="" href="{{path('forum_index_back') }}">Admin</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 d-none d-lg-block">
+                                <div class="social_wrap d-flex align-items-center justify-content-end">
+                                    <div class="social_links d-none d-xl-block">
+                                        <ul>
+                                            <li><a href="#"> <i class="fa fa-instagram"></i> </a></li>
+                                            <li><a href="#"> <i class="fa fa-linkedin"></i> </a></li>
+                                            <li><a href="#"> <i class="fa fa-facebook"></i> </a></li>
+                                            <li><a href="#"> <i class="fa fa-google-plus"></i> </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container hero-forum has-text-centered">
+            <h1  style="color:crimson;"class="title">
+                Les questions sont partout, les réponses sont sur ElGitoun
+
+
+            </h1>
+
+            <div class="field is-grouped">
+                <form method="POST">
+
+                    <input style=" font-size:1.6rem ;width: 400px  ;margin-left: 100px;" type="text" name="titre" placeholder="Find a great content">
+                    <input class="button is-medium is-info" type="submit"value="recherche" onclick=href="{{path('forum_index_front_Search')}}" >
+
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+<br/>
+{% block pub %}
+{% endblock %}
+
+<script src={{ asset('js/script.js')}} ></script>
+</body>
+
+</html>

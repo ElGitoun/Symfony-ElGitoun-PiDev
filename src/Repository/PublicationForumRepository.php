@@ -14,6 +14,22 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PublicationForumRepository extends ServiceEntityRepository
 {
+
+    public function filtre(){
+
+       $query=$this->createQueryBuilder('p')
+            ->where('p.id=5')
+
+            ->getQuery();
+        return $query->getResult();
+
+
+}
+
+
+
+
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, PublicationForum::class);

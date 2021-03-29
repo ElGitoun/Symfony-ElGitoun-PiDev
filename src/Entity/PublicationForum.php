@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
+
+
+
+
+
+
 /**
  * @ORM\Entity(repositoryClass=PublicationForumRepository::class)
  */
@@ -53,15 +59,33 @@ class PublicationForum
      */
     private $user;
 
+
+
+/*
     /**
-     * @ORM\OneToMany(targetEntity=ForumCommentaire::class, mappedBy="publication")
+     * @ORM\OneToMany(targetEntity=ForumCommentaire::class, mappedBy="publicationForums")
      */
-    private $forumCommentaires;
+   /* private $forumCommentaires;*/
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $views;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ForumCommentaire::class, mappedBy="publicationForums")
+     */
+    private $cmts;
 
     public function __construct()
     {
-        $this->forumCommentaires = new ArrayCollection();
+        $this->cmts = new ArrayCollection();
     }
+
+   /* public function __construct()
+    {
+        $this->forumCommentaires = new ArrayCollection();
+    }*/
 
 
     public function getId(): ?int
@@ -128,11 +152,11 @@ class PublicationForum
 
         return $this;
     }
-
+/*
     /**
      * @return Collection|ForumCommentaire[]
      */
-    public function getForumCommentaires(): Collection
+   /* public function getForumCommentaires(): Collection
     {
         return $this->forumCommentaires;
     }
@@ -157,7 +181,73 @@ class PublicationForum
         }
 
         return $this;
+    }*/
+/*
+    public function getComment(): ?string
+    {
+        return $this->Comment;
     }
 
+    public function setComment(?string $Comment): self
+    {
+        $this->Comment = $Comment;
+
+        return $this;
+    }
+
+    public function getComments(): ?string
+    {
+        return $this->Comments;
+    }
+
+    public function setComments(string $Comments): self
+    {
+        $this->Comments = $Comments;
+
+        return $this;
+    }
+*/
+
+public function getViews(): ?int
+{
+    return $this->views;
+}
+
+public function setViews(?int $views): self
+{
+    $this->views = $views;
+
+    return $this;
+}
+
+/**
+ * @return Collection|ForumCommentaire[]
+ */
+public function getCmts(): Collection
+{
+    return $this->cmts;
+}
+
+public function addCmt(ForumCommentaire $cmt): self
+{
+    if (!$this->cmts->contains($cmt)) {
+        $this->cmts[] = $cmt;
+        $cmt->setPublicationForums($this);
+    }
+
+    return $this;
+}
+
+public function removeCmt(ForumCommentaire $cmt): self
+{
+    if ($this->cmts->removeElement($cmt)) {
+        // set the owning side to null (unless already changed)
+        if ($cmt->getPublicationForums() === $this) {
+            $cmt->setPublicationForums(null);
+        }
+    }
+
+    return $this;
+}
    
 }

@@ -1,0 +1,90 @@
+{% extends 'index.html.twig' %}
+
+{% block pub %}
+
+
+    <table class="table">
+        <tbody>
+
+        <tr>
+            <th>User</th>
+            <td>{{ publicationForum.getUser.getFirstname }}</td>
+        </tr>
+
+        <tr>
+            <th>Id</th>
+            <td>{{ publicationForum.id }}</td>
+        </tr>
+        <tr>
+            <th>Titre</th>
+            <td>{{ publicationForum.titre }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ publicationForum.description }}</td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td>{{ publicationForum.date ? publicationForum.date|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td>{{ publicationForum.image }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('forum_index_front_Search') }}">back to list</a>
+
+    <a href="{{ path('updateM_index_front', {'id': publicationForum.id}) }}">edit</a>
+
+
+
+
+
+
+
+
+    <link  href={{asset('netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')}}// rel="stylesheet" id="bootstrap-css">
+    <script src={{asset('netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js')}}></script>
+    <script src={{asset('code.jquery.com/jquery-1.11.1.min.js')}}></script>
+    <link rel="stylesheet" href={{ asset('css1.css') }}>
+
+    <!------ Include the above in your HEAD tag ---------->
+
+    <div >
+        <div>
+            <div class="col-sm-10 col-sm-offset-1" id="logout">
+
+                <div class="comment-tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#comments-logout"><h4 class="reviews text-capitalize p-3 mb-2 bg-secondary text-white">{{ publicationForum.cmts |length  }} Commentaires </h4></a></li>
+                    </ul>
+                    {% for m in publicationForum.cmts %}
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="comments-logout">
+                            <ul class="media-list">
+                                <li class="media">
+                                    <a class="pull-left" href="#">
+                                        <figure class="image avatar is-64x64">
+                                            <img src={{ asset('/assets/img/1.png')}} alt="Image" class="is-rounded">
+                                        </figure>
+                                    </a>
+                                    <div class="media-body">
+                                        <div class="well well-lg">
+                                            <h4 class="media-heading text-uppercase reviews">{{ m.getUser.getFirstname }} </h4>
+                                            <ul class="media-date text-uppercase reviews list-inline">
+                                                <li class="dd">{{ m.date ? m.date|date('Y-m-d') : ''  }}</li>
+
+                                            </ul>
+                                            <p class="media-comment"  style="    margin-left: 20px;">
+                                                {{ m.description }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </li>
+
+                                {% endfor %}
+{% endblock %}

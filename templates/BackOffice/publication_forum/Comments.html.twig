@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PublicationForum index{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 style="color:#0000ff;">Forum ElGitoun</h1>
+
+        <table class="table table-sm">
+            <thead>
+            <tr>
+
+
+                <th scope="col"></th>
+                <th scope="col">Description</th>
+                <th scope="col">User_id</th>
+                <th scope="col">Titre</th>
+                <th scope="col">image</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for m in Comments  %}
+
+                <tr>
+                    <td>
+                    </td>
+
+                    <td>{{ m.description}}</td>
+                    <td>{{ m.date }}</td>
+                    <td>{{ m.reaction}}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

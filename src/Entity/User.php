@@ -79,6 +79,13 @@ class User
      */
     private $feedback;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ForumCommentaire::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $forumComment;
+
+
+
     public function __construct()
     {
         $this->reservationEvenements = new ArrayCollection();
@@ -86,6 +93,8 @@ class User
         $this->publicationForums = new ArrayCollection();
         $this->publicationEquipements = new ArrayCollection();
         $this->feedback = new ArrayCollection();
+        $this->forumCommentaires = new ArrayCollection();
+        $this->forumComment = new ArrayCollection();
     }
 
    
@@ -321,6 +330,66 @@ class User
             // set the owning side to null (unless already changed)
             if ($feedback->getUser() === $this) {
                 $feedback->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ForumCommentaire[]
+     */
+    public function getForumCommentaires(): Collection
+    {
+        return $this->forumCommentaires;
+    }
+
+    public function addForumCommentaire(ForumCommentaire $forumCommentaire): self
+    {
+        if (!$this->forumCommentaires->contains($forumCommentaire)) {
+            $this->forumCommentaires[] = $forumCommentaire;
+            $forumCommentaire->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeForumCommentaire(ForumCommentaire $forumCommentaire): self
+    {
+        if ($this->forumCommentaires->removeElement($forumCommentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($forumCommentaire->getUser() === $this) {
+                $forumCommentaire->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ForumCommentaire[]
+     */
+    public function getForumComment(): Collection
+    {
+        return $this->forumComment;
+    }
+
+    public function addForumComment(ForumCommentaire $forumComment): self
+    {
+        if (!$this->forumComment->contains($forumComment)) {
+            $this->forumComment[] = $forumComment;
+            $forumComment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeForumComment(ForumCommentaire $forumComment): self
+    {
+        if ($this->forumComment->removeElement($forumComment)) {
+            // set the owning side to null (unless already changed)
+            if ($forumComment->getUser() === $this) {
+                $forumComment->setUser(null);
             }
         }
 

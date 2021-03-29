@@ -1,0 +1,105 @@
+{% extends 'client.html.twig' %}
+{% block pub %}
+
+
+
+
+
+
+
+
+    <div class="column is-three-quarters" >
+        <div class="tabs forum">
+            <ul>
+                <li class="is-active"><a>All</a></li>
+                <li><a>Ouverts</a></li>
+                <li><a>Résolue</a></li>
+                <li><a>Populaires</a></li>
+                <a href="{{ path("addpost_index_front") }}" class="btn btn-danger "style="float:right ; right:5;margin-left:230px;color: white;width: 250px;">Ajouter</a>
+            </ul>
+        </div>
+        <div class="box forum">
+            {% for m in forum  %}
+                <article class="media">
+                    <div class="media-left">
+                        <figure class="image avatar is-64x64">
+                            <img src={{ asset('/assets/img/1.png')}} alt="Image" class="is-rounded">
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <div class="content list-forum">
+                            <div class="is-pulled-right has-text-centered ">
+                                <a href="#" class="love">
+                                        <span>
+                                    <i class="mdi mdi-heart-outline"></i>
+                                  </span>
+                                </a>
+                                <span>15</span>
+                            </div>
+                            <p class="text-content">
+
+                                <a href="{{ path('publication_forum_show', {'id': m.id}) }}"> {{m.titre}}
+                                    <span class="solved" title="Solved">
+                                  <i class="mdi mdi-checkbox-marked-circle"></i>
+                                </span>
+                                </a>
+                            </p>
+                            <p class="tags-content">
+                                <a class="tag is-rounded is-primary"> {{m.getUser.getFirstname}}</a>
+
+                            </p>
+                            <p class="info-content">
+                                <a>
+                                    <i class="mdi "></i>
+                                    <small>{{ m.date |date('d-m-Y')}}</small>
+                                </a>
+
+                                <a>
+                                    <i class="mdi mdi-eye-outline"></i>
+                                    <small>{{ m.views }}</small>
+                                </a>
+                                <a>
+                                    <i class="mdi mdi-comment-text-multiple-outline"></i>
+                                    <small>{{ m.cmts |length  }}</small>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+
+
+
+
+
+
+            <div class="navigation">
+
+
+            </div>
+        </div>
+      <!--
+        <div class="box">
+            <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+                <a class="pagination-previous">Previous</a>
+                <a class="pagination-next">Next page</a>
+                <ul class="pagination-list">
+                    <li><a class="pagination-link is-current" aria-label="Goto page 1">1</a></li>
+                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                    <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+                    <li><a class="pagination-link " aria-label="Page 46" aria-current="page">46</a></li>
+                    <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                    <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+                </ul>
+            </nav>
+        </div>
+-->
+
+
+
+        {{ knp_pagination_render(forum) }}
+
+    </div>
+
+{% endblock %}

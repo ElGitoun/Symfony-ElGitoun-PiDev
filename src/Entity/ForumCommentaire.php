@@ -34,15 +34,29 @@ class ForumCommentaire
      */
     private $reaction;
 
+
+
+/*
+
+   /**
+     * @ORM\ManyToOne (targetEntity=PublicationForum::class,inversedBy="forumCommentaires")
+     */
+   /* private $publicationForums;
+*/
     /**
-     * @ORM\OneToMany(targetEntity=PublicationForum::class, mappedBy="commentaire")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="forumComment")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=PublicationForum::class, inversedBy="cmts")
      */
     private $publicationForums;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=PublicationForum::class, inversedBy="forumCommentaires")
-     */
-    private $publication;
+
+
+
 
     public function __construct()
     {
@@ -89,11 +103,11 @@ class ForumCommentaire
 
         return $this;
     }
-
+/*
     /**
      * @return Collection|PublicationForum[]
      */
-    public function getPublicationForums(): Collection
+  /*  public function getPublicationForums(): Collection
     {
         return $this->publicationForums;
     }
@@ -119,7 +133,7 @@ class ForumCommentaire
 
         return $this;
     }
-
+*/
     public function getPublication(): ?PublicationForum
     {
         return $this->publication;
@@ -131,4 +145,29 @@ class ForumCommentaire
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPublicationForums(): ?PublicationForum
+    {
+        return $this->publicationForums;
+    }
+
+    public function setPublicationForums(?PublicationForum $publicationForums): self
+    {
+        $this->publicationForums = $publicationForums;
+
+        return $this;
+    }
+
 }
