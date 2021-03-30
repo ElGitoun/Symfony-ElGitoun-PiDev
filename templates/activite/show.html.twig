@@ -50,6 +50,13 @@
                     </div>
                     <div class="bordered_1px"></div>
                     <div class="contact_join">
+                    {{ form_start (form)}}
+                    {{ form_label (form.places)}}
+                    {{ form_widget (form.places)}}
+                    {{ form_errors (form.places)}}
+                    {{ form_end (form)}}
+
+
                         <h3>Contact for join</h3>
                         <form action="#">
                             <div class="row">

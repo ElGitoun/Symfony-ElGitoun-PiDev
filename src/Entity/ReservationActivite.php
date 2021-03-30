@@ -17,63 +17,33 @@ class ReservationActivite
      */
     private $id;
 
+    
+
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $heureRA;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $dateRA;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="reservationActivites")
-     */
-    private $user;
+    private $email;
 
     /**
      * @ORM\ManyToOne(targetEntity=Activite::class, inversedBy="reservationActivites")
      */
     private $activite;
 
-    public function getId(): ?int
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $places;
+
+    
+
+    public function getEmail(): ?string
     {
-        return $this->id;
+        return $this->email;
     }
 
-    public function getHeureRA(): ?string
+    public function setEmail(string $email): self
     {
-        return $this->heureRA;
-    }
-
-    public function setHeureRA(string $heureRA): self
-    {
-        $this->heureRA = $heureRA;
-
-        return $this;
-    }
-
-    public function getDateRA(): ?\DateTimeInterface
-    {
-        return $this->dateRA;
-    }
-
-    public function setDateRA(\DateTimeInterface $dateRA): self
-    {
-        $this->dateRA = $dateRA;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
+        $this->email = $email;
 
         return $this;
     }
@@ -86,6 +56,18 @@ class ReservationActivite
     public function setActivite(?Activite $activite): self
     {
         $this->activite = $activite;
+
+        return $this;
+    }
+
+    public function getPlaces(): ?int
+    {
+        return $this->places;
+    }
+
+    public function setPlaces(int $places): self
+    {
+        $this->places = $places;
 
         return $this;
     }

@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Activite;
 use App\Entity\ActiviteSearch;
 use App\Entity\PropertySearch;
+use App\Entity\ReservationActivite;
+use App\Entity\Users;
 use App\Form\ActiviteSearchType;
 use App\Form\PropertySearchType;
+use App\Form\ReservationActiviteType;
 use App\Repository\ActiviteRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,15 +75,36 @@ class ActiviteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="activite_show" , requirements={"id":"\d+"} , methods={"GET"})
+     * @Route("/activite{id}", name="activite_show" , requirements={"id":"\d+"} , methods={"GET|POST"})
      * @param Activite $activite
      */
-    public function show(Activite $activite,Request $request): Response
+    public function show(ActiviteRepository $repo , $id , Activite $activite , Request $request , AuthenticationUtils $authenticationUtils): Response
     {
-        
+        $reservationactivite = new ReservationActivite();
+        $email = $authenticationUtils->getLastUsername();
+
+        $activite=$repo->find($id);
+        $reservationactivite->setEmail($email);
+        $reservationactivite->setActivite($activite);
+        $form = $this->createForm(ReservationActiviteType::class, $reservationactivite);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+           
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($reservationactivite);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+
+            
+        }
         return $this->render('activite/show.html.twig', [
-            'activite' => $activite,
+            'activite' => $activite, 'form' => $form->createView(),
         ]);
     }
+
+    
     
 }
