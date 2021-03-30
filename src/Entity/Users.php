@@ -36,7 +36,7 @@ class Users implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="json_array")
      */
     private $roles = [];
 
@@ -55,6 +55,8 @@ class Users implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $gender;
+
+    protected $captchaCode;
 
     public function getId(): ?int
     {
@@ -141,6 +143,7 @@ class Users implements UserInterface
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
+        
 
         return array_unique($roles);
     }
@@ -176,6 +179,16 @@ class Users implements UserInterface
     public function getSalt(): ?string
     {
         return null;
+    }
+
+    public function getCaptchaCode()
+    {
+      return $this->captchaCode;
+    }
+
+    public function setCaptchaCode($captchaCode)
+    {
+      $this->captchaCode = $captchaCode;
     }
 
     /**

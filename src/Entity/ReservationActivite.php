@@ -28,7 +28,7 @@ class ReservationActivite
     private $dateRA;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservationActivites")
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="reservationActivites")
      */
     private $user;
 

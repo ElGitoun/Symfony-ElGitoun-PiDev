@@ -1,0 +1,9 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        activite_image:
+            uri_prefix: /images/activites
+            upload_destination: '%kernel.project_dir%/public/images/activites'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+

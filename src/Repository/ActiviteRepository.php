@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Activite;
+use App\Entity\ActiviteSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -54,5 +57,30 @@ class ActiviteRepository extends ServiceEntityRepository
             ->setParameter('tit', $term)
             ->getQuery()
             ->execute();
+    }
+
+      /**
+      * @return Query
+      */
+
+    public function findAllVisibleQuery(ActiviteSearch $search) : Query
+    {
+     $query = $this->findVisibleQuery();
+     if ($search->getMaxPrice()) {
+         $query = $query
+          ->andwhere('a.price <= :maxprice')
+          ->setParameter('maxprice', $search->getMaxPrice()) ;
+     }
+     if ($search->getMinDuration()) {
+        $query = $query
+         ->andwhere('a.duration >= :minduration')
+         ->setParameter('minduration', $search->getMinDuration()) ;
+    }
+     return $query->getQuery();
+    }
+    private function findVisibleQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('a');
+        
     }
 }

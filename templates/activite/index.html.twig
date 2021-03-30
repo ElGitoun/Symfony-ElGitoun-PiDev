@@ -88,11 +88,13 @@
                             <div class="single_place">
                                 <div class="thumb">
 
-                                    <img src="{{ asset('images/1.png') }}" alt="">
+                                    {% if activite.filename %}
+                                    <img src="{{ vich_uploader_asset(activite, 'imageFile') }}" alt="">
+                                    {% endif %}
                                     <a href="#" class="prise">{{ activite.price}} DT</a>
                                 </div>
                                 <div class="place_info">
-                                    <a href="destination_details.html"><h3>{{ activite.title}}</h3></a>
+                                    <a href="{{ path('activite_show', {'id': activite.id}) }}"<h3>{{ activite.title}}</h3></a>
                                     <p>{{ activite.emplacement}}</p>
                                     <div class="rating_days d-flex justify-content-between">
                                         <span class="d-flex justify-content-center align-items-center">
@@ -134,6 +136,23 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="section_title text-center mb_70">
+                    <div class="jumbotron">
+                    <div class="container">
+                    {{ form_start(formm) }}
+                    <div class="form-row">
+                    <div class="col">
+                    {{ form_row(formm.minDuration) }}
+                    </div>
+                    <div class="col">
+                    {{ form_row(formm.maxPrice) }}
+                    </div>
+                    <div class="col">
+                    <button class="boxed-btn4" >Filtrer</button>
+                    </div>
+                    </div>
+                    {{ form_end(formm) }}
+                    </div>
+                    </div>
                         <h3>All Activites</h3>
                     </div>
                 </div>
@@ -143,12 +162,13 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="single_place">
                                 <div class="thumb">
-
-                                    <img src="{{ asset('images/1.png') }}" alt="">
+                                   {% if activite.filename %}
+                                    <img src="{{ vich_uploader_asset(activite, 'imageFile') }}" alt="">
+                                    {% endif %}
                                     <a href="#" class="prise">{{ activite.price}} DT</a>
                                 </div>
                                 <div class="place_info">
-                                    <a href="destination_details.html"><h3>{{ activite.title}}</h3></a>
+                                    <a href="{{ path('activite_show', {'id': activite.id}) }}"<h3>{{ activite.title}}</h3></a>
                                     <p>{{ activite.emplacement}}</p>
                                     <div class="rating_days d-flex justify-content-between">
                                         <span class="d-flex justify-content-center align-items-center">

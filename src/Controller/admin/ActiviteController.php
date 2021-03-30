@@ -29,6 +29,7 @@ class ActiviteController extends AbstractController
     /**
      * @Route("/admin", name="admin.activite.index")
      * @return \Symfony\Component\HttpFoundation\Response;
+     * @param Activite $activite
      */
 
     public function index() 
